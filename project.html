@@ -1,0 +1,775 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>YOR CANTEEN</title>
+     <style>
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+html {
+    scroll-behavior: smooth;
+}
+body {
+    background: #fffaf5;
+    line-height: 1.6;
+}
+.navbar {
+    position: fixed;
+    top: 0;
+    width: 100%;
+    background: #ff6f00;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 15px 5%;
+    z-index: 1000;
+    box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+}
+
+.logo {
+    color: white;
+    font-size: 24px;
+    font-weight: bold;
+    white-space: nowrap;
+}
+
+.nav-links {
+    list-style: none;
+    display: flex;
+    transition: all 0.3s ease;
+}
+
+.nav-links li a {
+    color: white;
+    text-decoration: none;
+    margin-left: 25px;
+    font-weight: 500;
+    padding: 8px 12px;
+    border-radius: 4px;
+    transition: all 0.3s ease;
+}
+
+.nav-links li a:hover {
+    background: rgba(255,255,255,0.2);
+    text-decoration: none;
+}
+
+.mobile-menu-btn {
+    display: none;
+    background: none;
+    border: none;
+    color: white;
+    font-size: 24px;
+    cursor: pointer;
+}
+
+.hero {
+    min-height: 100vh;
+    background: linear-gradient(rgba(0,0,0,0.6), rgba(0,0,0,0.6))  ;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    padding: 80px 20px 20px;
+}
+
+.hero-content {
+    background: rgba(0,0,0,0.7);
+    color: white;
+    padding: 30px;
+    border-radius: 10px;
+    max-width: 800px;
+    width: 90%;
+}
+
+.hero h1 {
+    font-size: clamp(2rem, 5vw, 3.5rem);
+    margin-bottom: 15px;
+}
+
+.hero p {
+    font-size: clamp(1rem, 3vw, 1.5rem);
+    margin-bottom: 20px;
+}
+
+.hero button {
+    margin-top: 15px;
+    padding: 12px 30px;
+    border: none;
+    background: #ff6f00;
+    color: white;
+    cursor: pointer;
+    border-radius: 5px;
+    font-size: 1.1rem;
+    font-weight: 600;
+    transition: all 0.3s ease;
+}
+
+.hero button:hover {
+    background: #e65100;
+    transform: translateY(-2px);
+    box-shadow: 0 5px 15px rgba(0,0,0,0.3);
+}
+.menu-section, .about, .feedback {
+    padding: 60px 5%;
+}
+
+.menu-section h2, .about h2, .feedback h2 {
+    text-align: center;
+    color: #333;
+    font-size: clamp(1.8rem, 4vw, 2.5rem);
+    margin-bottom: 30px;
+    position: relative;
+}
+
+.menu-section h2::after, .about h2::after, .feedback h2::after {
+    content: '';
+    position: absolute;
+    bottom: -10px;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 80px;
+    height: 4px;
+    background: #ff6f00;
+    border-radius: 2px;
+}
+.menu-container {
+    display: flex;
+    gap: 30px;
+    flex-wrap: wrap;
+    margin-top: 40px;
+}
+
+.menu-grid {
+    flex: 3;
+    min-width: 300px;
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+    gap: 25px;
+}
+
+.card {
+    background: white;
+    border-radius: 12px;
+    padding: 15px;
+    text-align: center;
+    box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+}
+
+.card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 10px 25px rgba(0,0,0,0.15);
+}
+
+.card img {
+    width: 100%;
+    height: 180px;
+    border-radius: 8px;
+    object-fit: cover;
+    margin-bottom: 15px;
+}
+
+.card h3 {
+    color: #333;
+    margin: 10px 0;
+    font-size: 1.3rem;
+    flex-grow: 1;
+}
+
+.card p {
+    color: #ff6f00;
+    font-size: 1.5rem;
+    font-weight: bold;
+    margin: 10px 0;
+}
+
+.card input {
+    width: 70px;
+    margin: 10px auto;
+    padding: 8px;
+    border: 2px solid #ddd;
+    border-radius: 5px;
+    text-align: center;
+    font-size: 1rem;
+    transition: border-color 0.3s ease;
+}
+
+.card input:focus {
+    outline: none;
+    border-color: #ff6f00;
+}
+.bill {
+    flex: 1;
+    min-width: 300px;
+    background: #fff3e0;
+    padding: 25px;
+    border-radius: 12px;
+    position: sticky;
+    top: 100px;
+    height: fit-content;
+    box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+}
+
+.bill h3 {
+    color: #333;
+    margin-bottom: 20px;
+    text-align: center;
+    font-size: 1.5rem;
+}
+
+#bill-items {
+    list-style: none;
+    max-height: 300px;
+    overflow-y: auto;
+    margin-bottom: 20px;
+    padding: 10px;
+    background: white;
+    border-radius: 8px;
+}
+
+.bill h4 {
+    text-align: center;
+    font-size: 1.5rem;
+    color: #333;
+    margin: 20px 0;
+    padding: 15px;
+    background: white;
+    border-radius: 8px;
+}
+
+.bill button {
+    width: 100%;
+    margin-top: 10px;
+    padding: 12px;
+    border: none;
+    background: #ff6f00;
+    color: white;
+    cursor: pointer;
+    border-radius: 5px;
+    font-size: 1rem;
+    font-weight: 600;
+    transition: all 0.3s ease;
+}
+
+.bill button:hover {
+    background: #e65100;
+    transform: translateY(-2px);
+}
+
+.bill button:first-of-type {
+    margin-top: 0;
+}
+
+
+.about {
+    background: #fff8f0;
+}
+
+.about p {
+    max-width: 800px;
+    margin: 0 auto;
+    text-align: center;
+    font-size: clamp(1rem, 3vw, 1.2rem);
+    color: #555;
+    line-height: 1.8;
+    padding: 0 10px;
+}
+
+.feedback form {
+    max-width: 600px;
+    margin: 30px auto;
+    background: white;
+    padding: 30px;
+    border-radius: 12px;
+    box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+}
+
+.feedback input, .feedback textarea {
+    width: 100%;
+    margin-bottom: 20px;
+    padding: 15px;
+    border: 2px solid #ddd;
+    border-radius: 8px;
+    font-size: 1rem;
+    transition: border-color 0.3s ease;
+}
+
+.feedback input:focus, .feedback textarea:focus {
+    outline: none;
+    border-color: #ff6f00;
+}
+
+.feedback button[type="submit"] {
+    width: 100%;
+    padding: 15px;
+    border: none;
+    background: #ff6f00;
+    color: white;
+    cursor: pointer;
+    border-radius: 8px;
+    font-size: 1.1rem;
+    font-weight: 600;
+    transition: all 0.3s ease;
+}
+
+.feedback button[type="submit"]:hover {
+    background: #e65100;
+    transform: translateY(-2px);
+    box-shadow: 0 5px 15px rgba(0,0,0,0.2);
+}
+
+/* RESPONSIVE MEDIA QUERIES */
+
+/* Tablets and Small Laptops */
+@media (max-width: 1024px) {
+    .menu-container {
+        gap: 20px;
+    }
+    
+    .menu-grid {
+        grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+    }
+    
+    .bill {
+        min-width: 280px;
+    }
+}
+
+/* Tablets */
+@media (max-width: 768px) {
+    .navbar {
+        padding: 12px 4%;
+    }
+    
+    .logo {
+        font-size: 22px;
+    }
+    
+    .mobile-menu-btn {
+        display: block;
+    }
+    
+    .nav-links {
+        position: fixed;
+        top: 70px;
+        left: -100%;
+        width: 100%;
+        height: calc(100vh - 70px);
+        background: #ff6f00;
+        flex-direction: column;
+        align-items: center;
+        padding-top: 40px;
+        transition: left 0.3s ease;
+    }
+    
+    .nav-links.active {
+        left: 0;
+    }
+    
+    .nav-links li {
+        margin: 15px 0;
+    }
+    
+    .nav-links li a {
+        margin-left: 0;
+        padding: 15px 30px;
+        display: block;
+        font-size: 1.2rem;
+    }
+    
+    .menu-container {
+        flex-direction: column;
+    }
+    
+    .menu-grid {
+        order: 2;
+        grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+    }
+    
+    .bill {
+        order: 1;
+        position: static;
+        margin-bottom: 30px;
+    }
+    
+    .hero {
+        min-height: 80vh;
+        background-attachment: scroll;
+    }
+    
+    .hero-content {
+        width: 95%;
+        padding: 25px;
+    }
+}
+
+/* Large Mobile Phones */
+@media (max-width: 480px) {
+    .navbar {
+        padding: 10px 3%;
+    }
+    
+    .logo {
+        font-size: 20px;
+    }
+    
+    .hero {
+        padding-top: 70px;
+        min-height: 70vh;
+    }
+    
+    .hero h1 {
+        font-size: 1.8rem;
+    }
+    
+    .hero button {
+        padding: 10px 25px;
+        font-size: 1rem;
+    }
+    
+    .menu-section, .about, .feedback {
+        padding: 40px 4%;
+    }
+    
+    .menu-grid {
+        grid-template-columns: 1fr;
+        gap: 20px;
+    }
+    
+    .card {
+        padding: 12px;
+    }
+    
+    .card img {
+        height: 160px;
+    }
+    
+    .feedback form {
+        padding: 20px;
+    }
+    
+    .feedback input, .feedback textarea {
+        padding: 12px;
+    }
+}
+
+/* Small Mobile Phones */
+@media (max-width: 360px) {
+    .hero-content {
+        padding: 20px;
+    }
+    
+    .hero h1 {
+        font-size: 1.5rem;
+    }
+    
+    .menu-grid {
+        gap: 15px;
+    }
+    
+    .card img {
+        height: 140px;
+    }
+    
+    .card h3 {
+        font-size: 1.2rem;
+    }
+    
+    .bill {
+        padding: 20px;
+        min-width: 100%;
+    }
+}
+
+/* Large Desktops */
+@media (min-width: 1440px) {
+    .container {
+        max-width: 1400px;
+        margin: 0 auto;
+    }
+    
+    .menu-grid {
+        grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+    }
+    
+    .card img {
+        height: 200px;
+    }
+}
+
+/* Landscape Mode for Mobile */
+@media (max-height: 500px) and (orientation: landscape) {
+    .hero {
+        min-height: 120vh;
+        padding-top: 70px;
+    }
+    
+    .nav-links {
+        height: calc(100vh - 70px);
+        overflow-y: auto;
+    }
+}
+@media print {
+    .navbar, .hero, .feedback, .bill button {
+        display: none;
+    }
+    
+    .menu-section, .about {
+        padding: 20px;
+        margin-top: 0;
+    }
+    
+    .bill {
+        position: static;
+        box-shadow: none;
+        border: 2px solid #333;
+    }
+}
+
+@media (prefers-contrast: high) {
+    .navbar {
+        background: #000;
+        border-bottom: 3px solid #fff;
+    }
+    
+    .card {
+        border: 2px solid #000;
+    }
+    
+    .bill {
+        border: 3px solid #000;
+    }
+}
+@media (prefers-color-scheme: dark) {
+    body {
+        background: #1a1a1a;
+        color: #fff;
+    }
+    
+    .card {
+        background: #2d2d2d;
+        color: #fff;
+    }
+    
+    .card h3 {
+        color: #fff;
+    }
+    
+    .bill {
+        background: #2d2d2d;
+        color: #fff;
+    }
+      p {
+        font-style:italic;
+       
+       }
+ 
+    .feedback form {
+        background: #2d2d2d;
+    }
+}
+    </style>
+</head>
+<body>
+<script>
+let bill = {};
+function scrollToMenu() {
+    document.getElementById("menu").scrollIntoView({behavior:'smooth'});
+}
+function updateBill(input) {
+    const card = input.parentElement;
+    const name = card.dataset.name;
+    const price = parseInt(card.dataset.price);
+    const quantity = parseInt(input.value);
+
+    // If quantity is 0, remove item from bill
+    if (quantity === 0) {
+        delete bill[name];
+    } else {
+        // Store item with price and quantity
+        bill[name] = {
+            price: price,
+            qty: quantity
+        };
+    }
+
+    renderBill();
+}
+function renderBill() {
+    const billItems = document.getElementById("bill-items");
+    const totalSpan = document.getElementById("total");
+
+    billItems.innerHTML = "";
+    let total = 0;
+    for (let item in bill) {
+        const itemTotal = bill[item].price * bill[item].qty;
+        total += itemTotal;
+
+        const li = document.createElement("li");
+        // li.textContent = ${item} * ${bill[item].qty} = ₹${itemTotal};
+        li.textContent = item+"*"+bill[item].qty +"= ₹"+itemTotal;
+        li.style.marginBottom = "8px";
+        li.style.padding = "5px";
+        li.style.borderBottom = "1px solid #eee";
+        billItems.appendChild(li);
+    }
+
+    totalSpan.textContent = total;
+}
+function clearBill() {
+    bill = {};
+    document.querySelectorAll(".card input").forEach(input => input.value = 0);
+    renderBill();
+}
+function placeOrder() {
+    if (Object.keys(bill).length === 0) {
+        alert("Please add items to your bill.");
+    } else {
+        alert("Order Placed! 🍽️");
+        clearBill();
+    }
+}
+document.getElementById("feedbackForm").addEventListener("submit", function(e) {
+    e.preventDefault();
+    const name = document.getElementById("name").value.trim();
+    const mobile = document.getElementById("mobile").value.trim();
+    const comments = document.getElementById("comments").value.trim();
+    
+    if (!name || !mobile || !comments) {
+        alert("Please fill in all fields.");
+        return;
+    }
+    
+    if (!/^[6-9]\d{9}$/.test(mobile)) {
+        alert("Please enter a valid 10-digit mobile number.");
+        return;
+    }
+    
+    alert("Thank you for your feedback!");
+    this.reset();
+});
+function toggleMobileMenu() {
+    const navLinks = document.querySelector('.nav-links');
+    navLinks.classList.toggle('active');
+}
+
+
+document.addEventListener('click', function(event) {
+    const navLinks = document.querySelector('.nav-links');
+    const mobileMenuBtn = document.querySelector('.mobile-menu-btn');
+    
+    if (!navLinks.contains(event.target) && !mobileMenuBtn.contains(event.target)) {
+        navLinks.classList.remove('active');
+    }
+});
+    </script>
+
+<nav class="navbar">
+    <div class="logo">YOR CANTEEN</div>
+    <button class="mobile-menu-btn" onclick="toggleMobileMenu()">☰</button>
+    <ul class="nav-links">
+        <li><a href="#home" onclick="toggleMobileMenu()">Home</a></li>
+        <li><a href="#menu" onclick="toggleMobileMenu()">Menu</a></li>
+        <li><a href="#about" onclick="toggleMobileMenu()">About Us</a></li>
+        <li><a href="#feedback" onclick="toggleMobileMenu()">Feedback</a></li>
+    </ul>
+</nav>
+<section id="home" class="hero">
+    <div class="hero-content">
+        <h1>Delicious Food for Hungry Minds 🍽️</h1>
+        <p>Fresh • Hygienic • Affordable</p>
+        <button onclick="scrollToMenu()">Order Now</button>
+    </div>
+</section>
+<section id="menu" class="menu-section">
+    <h2>Our Menu</h2>
+
+    <div class="menu-container">
+
+        <!-- MENU ITEMS -->
+        <div class="menu-grid">
+
+            <div class="card" data-name="Masala Dosa" data-price="60">
+                <!-- <img src="C:\project image\Masala-Dosa.webp" alt="Masala Dosa" loading="lazy"> -->
+                 <img src= "Masala-Dosa.webp"alt="Masala Dosa" loading="lazy">
+                <h3>Masala Dosa</h3>
+                <p>₹60</p>
+                <input type="number" min="0" value="0" onchange="updateBill(this)">
+            </div>
+
+            <div class="card" data-name="Samosa" data-price="15">
+                <img src="Samosa.jpg" alt="Samosa" loading="lazy">
+                <h3>Samosa</h3>
+                <p>₹15</p>
+                <input type="number" min="0" value="0" onchange="updateBill(this)">
+            </div>
+
+            <div class="card" data-name="Veg Thali" data-price="120">
+                <img src="veg thali.png" alt="Thali" loading="lazy">
+                <h3>Veg Thali</h3>
+                <p>₹120</p>
+                <input type="number" min="0" value="0" onchange="updateBill(this)">
+            </div>
+
+            <div class="card" data-name="Chai" data-price="10">
+                <img src="chai.jpg" alt="Chai" loading="lazy">
+                <h3>Chai</h3>
+                <p>₹10</p>
+                <input type="number" min="0" value="0" onchange="updateBill(this)">
+            </div>
+
+            <div class="card" data-name="Chole Bhature" data-price="90">
+                <img src="chole bhature.jpg" alt="Chole Bhature" loading="lazy">
+                <h3>Chole Bhature</h3>
+                <p>₹90</p>
+                <input type="number" min="0" value="0" onchange="updateBill(this)">
+            </div>
+
+            <div class="card" data-name="Paneer roll" data-price="70">
+                <img src="Paneer roll.jpg" alt="Special Paneer Roll" loading="lazy">
+                <h3> Special Paneer Roll</h3>
+                <p>₹70</p>
+                <input type="number" min="0" value="0" onchange="updateBill(this)">
+            </div>
+
+        </div>
+        <div class="bill">
+            <h3>Your Bill</h3>
+            <ul id="bill-items"></ul>
+            <h4>Total: ₹<span id="total">0</span></h4>
+            <button onclick="clearBill()">Clear Bill</button>
+            <button onclick="placeOrder()">Place Order</button>
+        </div>
+
+    </div>
+</section>
+<section id="about" class="about">
+    <h2>About Us</h2>
+    <p>
+        YOR CANTEEN is a student-friendly college canteen dedicated to serving
+        hygienic, tasty, and affordable food. We believe good food builds a
+        strong campus community.
+    </p>
+</section>
+<section id="feedback" class="feedback">
+    <h2>Feedback</h2>
+
+    <form id="feedbackForm">
+        <input type="text" id="name" placeholder="Your Name" required>
+        <input type="tel" id="mobile" placeholder="Mobile Number" required>
+        <textarea id="comments" placeholder="Your Comments" required></textarea>
+        <button type="submit">Submit Feedback</button>
+    </form>
+</section>
+
+</body>
+</html>
